@@ -6,7 +6,7 @@ export type SchemaItem = {
   shared?: boolean;
 }
 
-export type Schema = Record<string, SchemaItem>;
+export type Schema = Record<string, SchemaItem>
 
 export interface Option {
   filename: string;
@@ -15,6 +15,10 @@ export interface Option {
   base?: string;
 }
 
+export type Configs = Record<string, Record<string, string | number | boolean | string[]>>
+
 export interface Context extends Option {
   argv: Record<string, any>;
+  configs: Configs;
+  path: string;
 }
