@@ -21,6 +21,7 @@ export const init = ({ filename, schema, profile = "default", base = BASE_PATH }
 
   // save mode
   command("config", false, () => { }, async (argv) => {
+    if (argv.profile) ctx.profile = argv.profile as string;
     if (argv.help) {
       // show help
     } else if (intersect(argv, schema)) {

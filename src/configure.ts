@@ -17,7 +17,7 @@ const ask = async (key: string, item: SchemaItem): Promise<{ [key: string]: Vali
     type,
     message: key,
     ...choices,
-  });
+  }, { onCancel: () => { process.exit(0); } });
 };
 
 export const configure = async (ctx: Context) => {
