@@ -21,12 +21,23 @@ const ask = async (key: string, item: SchemaItem): Promise<{ [key: string]: Vali
 };
 
 export const configure = async (ctx: Context) => {
-  let config = {};
+  const config = {
+    [ctx.profile]: {},
+    shared: {},
+  };
+
   for (const item of Object.entries(ctx.schema)) {
-    config = {
-      ...config,
-      ...(await ask(...item)),
-    };
+    if (item[1].shared) {
+      config.shared = {
+        ...config.shared,
+        ...(await ask(...item)),
+      };
+    } else {
+      config[ctx.profile] = {
+        ...config[ctx.profile],
+        ...(await ask(...item)),
+      };
+    }
   }
   const save = await prompts({
     type: "confirm",
@@ -35,7 +46,7 @@ export const configure = async (ctx: Context) => {
   });
 
   if (save.yes) {
-    write(ctx.path, mergeObject(ctx.configs, config));
+    write(ctx.path, mergeObject(ctx.configs, { [ctx.profile]: config }));
   } else {
     process.exit(0);
   }

@@ -7,8 +7,9 @@ const cmdconfig = {
 };
 
 const configSchema = cmdconfig.schema({
-  "accessKey": { type: "string", description: "...", shared: true },
-  "timeout": { type: "number", description: "..." },
+  "accessKey": { type: "string", description: "..." },
+  "secretAccessKey": { type: "string", description: "..." },
+  "timeout": { type: "number", description: "...", shared: true },
 });
 
 const asdf = init({
