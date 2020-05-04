@@ -8,7 +8,7 @@ import * as _path from "path";
 
 export const init = ({ filename, schema, profile = "default", base = BASE_PATH }: Option): any => {
   const path = _path.join(base, filename);
-  const configs = JSON.parse(loadOrCreate(path));
+  const configs = JSON.parse(loadOrCreate(path, base));
   const ctx: Context = {
     filename,
     schema,

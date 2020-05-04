@@ -39,6 +39,7 @@ export const configure = async (ctx: Context) => {
       };
     }
   }
+
   const save = await prompts({
     type: "confirm",
     name: "yes",
@@ -46,7 +47,7 @@ export const configure = async (ctx: Context) => {
   });
 
   if (save.yes) {
-    write(ctx.path, mergeObject(ctx.configs, { [ctx.profile]: config }));
+    write(ctx.path, mergeObject(ctx.configs, config));
   } else {
     process.exit(0);
   }

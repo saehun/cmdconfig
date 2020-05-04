@@ -12,10 +12,11 @@ const load = (path: string) => {
   }
 };
 
-export const loadOrCreate = (path: string, content = BASE_CONFIG) => {
+export const loadOrCreate = (path: string, base: string, content = BASE_CONFIG) => {
   try {
     return load(path);
   } catch (_) {
+    fs.mkdirSync(base, { recursive: true });
     fs.writeFileSync(path, content);
     return content;
   }
