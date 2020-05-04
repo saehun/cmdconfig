@@ -24,11 +24,10 @@ export const init = ({ filename, schema, profile = "default", base = BASE_PATH }
     if (argv.profile) ctx.profile = argv.profile as string;
     if (argv.help) {
       // show help
-    } else if (intersect(argv, schema)) {
-      // inline configuration
+    } else if (argv.list) {
+      // list
     } else {
-      // configure step by step with prompt
-      await configure(ctx);
+      await configure(ctx, intersect(argv, schema));
     }
 
     process.exit(0);

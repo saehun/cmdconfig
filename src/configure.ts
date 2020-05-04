@@ -20,24 +20,17 @@ const ask = async (key: string, item: SchemaItem): Promise<{ [key: string]: Vali
   }, { onCancel: () => { process.exit(0); } });
 };
 
-export const configure = async (ctx: Context) => {
+export const configure = async (ctx: Context, inline?: boolean) => {
   const config = {
     [ctx.profile]: {},
     shared: {},
   };
 
   for (const item of Object.entries(ctx.schema)) {
-    if (item[1].shared) {
-      config.shared = {
-        ...config.shared,
-        ...(await ask(...item)),
-      };
-    } else {
-      config[ctx.profile] = {
-        ...config[ctx.profile],
-        ...(await ask(...item)),
-      };
-    }
+    const field = await ask(...item);
+    const key = item[1].shared ? "shared" : ctx.profile;
+
+    config[key] = { ...config[key], ...field };
   }
 
   const save = await prompts({
