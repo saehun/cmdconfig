@@ -1,7 +1,7 @@
-import { Context, SchemaItem, ValidType } from "./types";
+import { Context, SchemaItem } from "./types";
 import { write } from "./io";
 import * as prompts from "prompts";
-import { mergeObject, convertType } from "./utils";
+import { mergeObject, validateType } from "./utils";
 
 const ask = async (key: string, item: SchemaItem): Promise<any> => {
 
@@ -40,7 +40,7 @@ export const configure = async (ctx: Context, inline?: boolean) => {
     let field = {};
 
     if (inline) {
-      field = { [fieldKey]: convertType(ctx.argv[fieldKey], item[1].type) };
+      field = { [fieldKey]: validateType(ctx.argv[fieldKey], item[1].type) };
     } else {
       field = { [fieldKey]: (await ask(...item)) };
     }

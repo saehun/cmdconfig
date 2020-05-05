@@ -20,7 +20,7 @@ export const mergeObject = (obj1: any, obj2: any) => {
   return ret;
 };
 
-export const convertType = (value: any, type: ValidType): (string | number | boolean | string[]) => {
+export const validateType = (value: any, type: ValidType): (string | number | boolean | string[]) => {
   switch (type) {
     case "string":
       return String(value);
