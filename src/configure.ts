@@ -56,7 +56,6 @@ export const configure = async (ctx: Context, inline?: boolean) => {
 
   if (save) {
     write(ctx.path, mergeObject(ctx.configs, config));
-  } else {
-    process.exit(0);
   }
+  process.exit(0);
 };
