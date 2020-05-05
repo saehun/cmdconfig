@@ -1,11 +1,7 @@
-import { init } from "./init";
-import { schema } from "./schema";
+export { init } from "./init";
+export { schema } from "./schema";
 
-const cmdconfig = {
-  schema,
-  init,
-};
-
+/*
 const configSchema = cmdconfig.schema({
   "accessKey": { type: "string", description: "..." },
   "secretAccessKey": { type: "string", description: "..." },
@@ -18,3 +14,4 @@ const asdf = init({
   filename: ".myappconfig",
   schema: configSchema,
 });
+*/

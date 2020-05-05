@@ -26,14 +26,15 @@ export const init = ({ filename, schema, base = BASE_PATH }: Option): any => {
   // Configuration mode
   command("config", false, () => { }, (argv) => {
     if (argv.help) {
-      console.log("hmm?");
       // show help
     } else if (argv.list) {
       // list
     } else if (intersect(argv, schema)) {
       configure.inline(ctx);
     } else {
-      execSync(`node dist/prompt.js --ctx="${base64.encode(ctx)}"`, { stdio: "inherit" });
+      // Yet prompts are async, execute child process to make it synchronous.
+      // Pass context data encoded with base64.
+      execSync(`npx cmdconfig --ctx="${base64.encode(ctx)}"`, { stdio: "inherit" });
     }
     process.exit(0);
   }).help(false).argv;
