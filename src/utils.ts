@@ -1,3 +1,5 @@
+import { ValidType } from "./types";
+
 export const intersect = (obj: any, obj2: any) => {
   for (const key in obj) {
     if (obj2[key] !== undefined) return true;
@@ -16,4 +18,22 @@ export const mergeObject = (obj1: any, obj2: any) => {
     ret[profile] = { ...original, ...next };
   }
   return ret;
+};
+
+export const convertType = (value: any, type: ValidType): (string | number | boolean | string[]) => {
+  switch (type) {
+    case "string":
+      return String(value);
+    case "number":
+      if (isNaN(value)) throw new TypeError(`Expected number, given ${value}`);
+      return Number(value);
+    case "boolean":
+      if (!(value === "true" || value === "false")) throw new TypeError(`Expected boolean(true or false), given ${value}`);
+      return value === "true";
+    default: // select type
+      if (!type.includes(String(value))) {
+        throw new TypeError(`Expected one of ${type.join(", ")}, given ${value}`);
+      }
+      return String(value);
+  }
 };

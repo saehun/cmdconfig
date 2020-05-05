@@ -1,9 +1,9 @@
 import { Context, SchemaItem, ValidType } from "./types";
 import { write } from "./io";
 import * as prompts from "prompts";
-import { mergeObject } from "./utils";
+import { mergeObject, convertType } from "./utils";
 
-const ask = async (key: string, item: SchemaItem): Promise<{ [key: string]: ValidType }> => {
+const ask = async (key: string, item: SchemaItem): Promise<any> => {
 
   const type = item.type === "string" ? "text"
     : item.type === "boolean" ? "confirm"
@@ -12,12 +12,18 @@ const ask = async (key: string, item: SchemaItem): Promise<{ [key: string]: Vali
 
   const choices: any = type === "select" ? { choices: item.type } : {};
 
-  return prompts({
+  const result = Object.values(await prompts({
     name: key,
     type,
     message: key,
     ...choices,
-  }, { onCancel: () => { process.exit(0); } });
+  }, { onCancel: () => { process.exit(0); } }))[0];
+
+  if (type === "select") {
+    return item.type[result];
+  } else {
+    return result;
+  }
 };
 
 export const configure = async (ctx: Context, inline?: boolean) => {
@@ -27,15 +33,19 @@ export const configure = async (ctx: Context, inline?: boolean) => {
   };
 
   for (const item of Object.entries(ctx.schema)) {
+    const fieldKey = item[0];
+    const profileKey = item[1].shared ? "shared" : ctx.profile;
+
+    if (inline && ctx.argv[fieldKey] === undefined) continue;
     let field = {};
-    const key = item[1].shared ? "shared" : ctx.profile;
+
     if (inline) {
-      field = ctx.argv[item[0]] ? { [item[0]]: ctx.argv[item[0]] } : {};
+      field = { [fieldKey]: convertType(ctx.argv[fieldKey], item[1].type) };
     } else {
-      field = await ask(...item);
+      field = { [fieldKey]: (await ask(...item)) };
     }
 
-    config[key] = { ...config[key], ...field };
+    config[profileKey] = { ...config[profileKey], ...field };
   }
 
   const save = inline || (await prompts({
