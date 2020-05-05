@@ -27,19 +27,24 @@ export const configure = async (ctx: Context, inline?: boolean) => {
   };
 
   for (const item of Object.entries(ctx.schema)) {
-    const field = await ask(...item);
+    let field = {};
     const key = item[1].shared ? "shared" : ctx.profile;
+    if (inline) {
+      field = ctx.argv[item[0]] ? { [item[0]]: ctx.argv[item[0]] } : {};
+    } else {
+      field = await ask(...item);
+    }
 
     config[key] = { ...config[key], ...field };
   }
 
-  const save = await prompts({
+  const save = inline || (await prompts({
     type: "confirm",
     name: "yes",
     message: `save as '${ctx.profile}' profile?`,
-  });
+  })).yes;
 
-  if (save.yes) {
+  if (save) {
     write(ctx.path, mergeObject(ctx.configs, config));
   } else {
     process.exit(0);
