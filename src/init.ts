@@ -5,6 +5,8 @@ import { configure } from "./configure";
 import { loadOrCreate } from "./io";
 import { load } from "./load";
 import { BASE_PATH } from "./constants";
+import { execSync } from "child_process";
+import { base64 } from "./base64";
 import * as _path from "path";
 help(false);
 
@@ -28,13 +30,13 @@ export const init = ({ filename, schema, base = BASE_PATH }: Option): any => {
       // show help
     } else if (argv.list) {
       // list
+    } else if (intersect(argv, schema)) {
+      configure.inline(ctx);
     } else {
-      configure(ctx);
+      execSync(`node dist/prompt.js --ctx="${base64.encode(ctx)}"`, { stdio: "inherit" });
     }
     process.exit(0);
   }).help(false).argv;
-
-  console.log("load!");
 
   // load mode
   return load(ctx);
