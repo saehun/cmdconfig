@@ -52,6 +52,9 @@ const prompt = async (ctx: Context) => {
   };
 
   for (const item of Object.entries(ctx.schema)) {
+    // Don't ask shared configuration when profile is not 'default'
+    if (ctx.profile !== "default" && item[1].shared) continue;
+
     const fieldKey = item[0];
     const profileKey = item[1].shared ? "shared" : ctx.profile;
 

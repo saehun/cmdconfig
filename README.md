@@ -43,7 +43,7 @@ const configSchema = cmdconfig.schema({
   "username": { type: "string", description: "Name of the user" },
   "bucketRegion": { type: ["us-east-1", "ap-northeast-2", "eu-west-1"], description: "Primary region of the bucket" },
   "timeout": { type: "number", description: "Request timeout in seconds" shared: true },
-  "localCache": { type: "boolean", description: "Save files in a local directory" shared: true },
+  "localCache": { type: "boolean", description: "Save files to a local directory" shared: true },
 });
 
 const config = cmdconfig.init({
@@ -56,4 +56,80 @@ console.log(config);
 
 ![config-result](https://github.com/minidonut/cmdconfig/raw/master/docs/config-result.png)
 
-## Examples
+## Features
+After implemented, `config` command is reserved. command with options `config --help` and `config --list` are auto generated. If the program starts with `config` command, it's execution will be stopped after configuration procedure is done.
+
+### Inline configuration
+``` shell
+$ myapp config --cache=false --bucketRegion=eu-west-1
+```
+
+### Profile management
+Save and load configs by profile with `profile=PROFILE_NAME` option.
+
+``` shell
+$ myapp config --profile=dev
+✔ username … katarina/dev
+✔ region › ap-northeast-2
+✔ save as 'dev' profile? … yes
+$ myapp --profile=dev
+{
+  username: 'katarina/dev',
+  bucketRegion: 'ap-northeast-2',
+  timeout: 30,
+  localCache: true
+}
+```
+
+### Environment variable
+
+``` javascript
+// myapp.js
+...
+const config = cmdconfig.init({
+  filename: ".myappconfig",
+  schema: configSchema,
+  profile: process.env.MY_APP_PROFILE,
+});
+...
+```
+
+``` shell
+$ MY_APP_PROFILE=dev myapp
+{
+  username: 'katarina/dev',
+  bucketRegion: 'ap-northeast-2',
+  timeout: 30,
+  localCache: true
+}
+```
+
+### Overriding
+
+``` shell
+$ myapp --username=katarina/test --localCache=false
+{
+  username: 'katarina/test',
+  bucketRegion: 'us-east-1',
+  timeout: 30,
+  localCache: false
+}
+```
+
+
+### Change base directory and filename
+Change location where the configuration file is saved.
+Save file to `~/.dotfiles/.myappconf`:
+
+``` javascript
+// myapp.js
+const os = require("os");
+const path = require("path");
+...
+const config = cmdconfig.init({
+  filename: ".myappconf",
+  schema: configSchema,
+  base: path.join(os.homedir(), ".dotfiles"),
+});
+...
+```
