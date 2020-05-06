@@ -25,7 +25,8 @@
     "cmdconfig": "dist/prompt.js"
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "dependencies": {
     "prompts": "^2.3.2",
