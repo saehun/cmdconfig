@@ -191,7 +191,7 @@ Parse commandline argument. if `config` command exist, it saves the configuratio
 ### `SchemaItem`
 | Key | Type | Description |
 | ----- | :--: | ----------- |
-| type | `"string" \| "number" \| "boolean" \| string[]` | type of config's property. Note) "string" is string constant. not ambiguous string |
+| type | `"string"`, `"number"`, `"boolean"`, `string[]` | type of config's property. Note) "string" is string constant. not ambiguous string |
 | description | `string` | (Optional) property description. It appears in `--help` command  |
 | shared | `boolean` | (Optional) whether the property belongs to profile or shared |
 
@@ -199,7 +199,7 @@ Parse commandline argument. if `config` command exist, it saves the configuratio
 | Key | Type | Description |
 | ----- | :--: | ----------- |
 | filename | `string` | configuration file name. ex) `".myappconfig"`  |
-| schema | `Schema` |  |
+| schema | `Schema` | Validated schema object. returned from cmdconfig.schema API |
 | profile | `string` | (Optional) pass value from environment variable. ex) `process.env.MY_APP_CONFIG` |
 | base | `string` | (Optional) where config file stored. default `path.join(os.homedir(), ".config")` (~/.config) |
 
