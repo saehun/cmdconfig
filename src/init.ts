@@ -1,20 +1,22 @@
+import { command, argv, help as _help } from "yargs";
+import { execSync } from "child_process";
+import * as _path from "path";
+import * as yaml from "yaml";
 import { Context, Option } from "./types";
-import { command, argv, help } from "yargs";
 import { intersect } from "./utils";
 import { configure } from "./configure";
 import { loadOrCreate } from "./io";
 import { load } from "./load";
 import { BASE_PATH } from "./constants";
-import { execSync } from "child_process";
 import { base64 } from "./base64";
-import * as _path from "path";
-help(false);
+import { help } from "./help";
+_help(false);
 
-export const init = ({ filename, schema, base = BASE_PATH }: Option): any => {
+export const init = ({ filename, schema, base = BASE_PATH, profile = "default" }: Option): any => {
   const path = _path.join(base, filename);
   const configs = JSON.parse(loadOrCreate(path, base));
   const ctx: Context = {
-    profile: (argv.profile as string) || "default",
+    profile: (argv.profile as string) || profile,
     filename,
     schema,
     base,
@@ -27,8 +29,10 @@ export const init = ({ filename, schema, base = BASE_PATH }: Option): any => {
   command("config", false, () => { }, (argv) => {
     if (argv.help) {
       // show help
+      console.log(help(schema));
     } else if (argv.list) {
       // list
+      console.log(yaml.stringify(configs));
     } else if (intersect(argv, schema)) {
       configure.inline(ctx);
     } else {

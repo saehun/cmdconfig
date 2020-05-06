@@ -26,10 +26,13 @@
   "bin": {
     "cmdconfig": "dist/prompt.js"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "prompts": "^2.3.2",
     "runtypes": "^4.2.0",
+    "yaml": "^1.9.2",
     "yargs": "^15.3.1"
   }
 }

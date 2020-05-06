@@ -28,6 +28,7 @@ export const validateType = (value: any, type: ValidType): (string | number | bo
       if (isNaN(value)) throw new TypeError(`Expected number, given ${value}`);
       return Number(value);
     case "boolean":
+      if (typeof value === "boolean") return value;
       if (!(value === "true" || value === "false")) throw new TypeError(`Expected boolean(true or false), given ${value}`);
       return value === "true";
     default: // select type
