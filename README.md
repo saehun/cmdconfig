@@ -191,7 +191,7 @@ Parse commandline argument. if `config` command exist, it saves the configuratio
 ### `SchemaItem`
 | Key | Type | Description |
 | ----- | :--: | ----------- |
-| type | `"string" | "number" | "boolean" | string[]` | type of config's property. Note) "string" is string constant. not ambiguous string |
+| type | `"string" \| "number" \| "boolean" \| string[]` | type of config's property. Note) "string" is string constant. not ambiguous string |
 | description | `string` | (Optional) property description. It appears in `--help` command  |
 | shared | `boolean` | (Optional) whether the property belongs to profile or shared |
 
