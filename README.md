@@ -15,13 +15,13 @@
 
 <p align="center">
   <b>Simple configuration CLI generator</b></br>
-  <sub>Declare schema, provides both argument and interactive configuration CRUD.</sub>
+  <sub>Declare schema, provide both argument and interactive configuration CRUD.</sub>
 </p>
 
 <br />
 
 - **Simple**: Only have 2 API. declare schema and initialize with few options.
-- **Versatile**: Provides both prompt and inline configuration.
+- **Versatile**: Provides both prompt and inline configurations.
 - **Extensible**: Supports environment variable, command line profile overriding.
 
 ## Install
@@ -146,23 +146,23 @@ return: `config object`<br>
 
 
 ## Type
-### Schema
+### `Schema`
 | Key | Type | Description |
 | ----- | :--: | ----------- |
-| key1 | `SchemaItem` | SchemaItem for key#1  |
-| key2 | `SchemaItem` | SchemaItem for key#2  |
-| key3 | `SchemaItem` | SchemaItem for key#3  |
+| key1 | `SchemaItem` | Schema Item for key#1  |
+| key2 | `SchemaItem` | Schema Item for key#2  |
+| key3 | `SchemaItem` | Schema Item for key#3  |
 | ... | ... | ... |
-| keyN | `SchemaItem` | SchemaItem for keyN  |
+| keyN | `SchemaItem` | Schema Item for keyN  |
 
-### SchemaItem
+### `SchemaItem`
 | Key | Type | Description |
 | ----- | :--: | ----------- |
 | type | `"string" | "number" | "boolean" | string[]` | type of config's property. Note) "string" is string constant. not ambiguous string |
 | description | `string` | (Optional) property description. It appears in `--help` command  |
 | shared | `boolean` | (Optional) whether the property belongs to profile or shared |
 
-### Option
+### `Option`
 | Key | Type | Description |
 | ----- | :--: | ----------- |
 | filename | `string` | configuration file name. ex) `".myappconfig"`  |
@@ -171,6 +171,39 @@ return: `config object`<br>
 | base | `string` | (Optional) where config file stored. default `path.join(os.homedir(), ".config")` (~/.config) |
 
 
+## Typescript
+This package is written in typescript, generating output type from schema is not supported yet (working).
+
+### Example
+``` typescript
+// src/config.ts
+import cmdconfig from "cmdconfig";
+
+const configSchema = cmdconfig.schema({
+  "username": { type: "string", description: "Name of the user" },
+  "bucketRegion": { type: ["us-east-1", "ap-northeast-2", "eu-west-1"], description: "Primary region of the bucket" },
+  "timeout": { type: "number", description: "Request timeout in seconds" shared: true },
+  "localCache": { type: "boolean", description: "Save files to a local directory" shared: true },
+});
+
+export default cmdconfig.init({
+  filename: ".myappconfig",
+  schema: configSchema,
+}) as {
+  username: string;
+  bucketRegion: "us-east-1" | "ap-northeast-2" | "eu-west-1";
+  timeout: number;
+  localCache: boolean;
+};
 
 
-### Typescript
+// src/index.ts
+import config from "./config";
+
+console.log(config);
+...
+```
+
+
+## License
+MIT
