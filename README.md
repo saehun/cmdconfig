@@ -43,8 +43,8 @@ const cmdconfig = require("cmdconfig");
 const configSchema = cmdconfig.schema({
   "username": { type: "string", description: "Name of the user" },
   "bucketRegion": { type: ["us-east-1", "ap-northeast-2", "eu-west-1"], description: "Primary region of the bucket" },
-  "timeout": { type: "number", description: "Request timeout in seconds" shared: true },
-  "localCache": { type: "boolean", description: "Save files to a local directory" shared: true },
+  "timeout": { type: "number", description: "Request timeout in seconds", shared: true },
+  "localCache": { type: "boolean", description: "Save files to a local directory", shared: true },
 });
 
 const config = cmdconfig.init({
@@ -210,7 +210,7 @@ This package is written in typescript, generating output type from schema is not
 ### Example
 ``` typescript
 // src/config.ts
-import cmdconfig from "cmdconfig";
+import * as cmdconfig from "cmdconfig";
 
 const configSchema = cmdconfig.schema({
   "username": { type: "string", description: "Name of the user" },
