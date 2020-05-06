@@ -23,6 +23,7 @@
 - **Simple**: Only have 2 API. declare schema and initialize with few options.
 - **Versatile**: Provides both prompt and inline configurations.
 - **Extensible**: Supports environment variable, command line profile overriding.
+- **reliable**: Typecheck for each properties.
 
 ## Install
 
@@ -134,15 +135,47 @@ const config = cmdconfig.init({
 ...
 ```
 
+
+### Help
+``` shell
+$ myapp config --help
+Options:
+  --help             Show help                                         [boolean]
+  --list             Show list                                         [boolean]
+  --username         Name of the user                                   [string]
+  --bucketRegion     Primary region of the bucket                       [string]
+  --timeout          Request timeout in seconds                         [number]
+  --localCache       Save files to a local directory                   [boolean]
+```
+
+
+### List
+Print all configuration details in yaml format.
+``` shell
+$ myapp config --list
+/Users/$USER/.config/.myappconfig
+default:
+  username: katarina
+  bucketRegion: us-east-1
+dev:
+  username: katarina/dev
+  bucketRegion: ap-northeast-2
+shared:
+  timeout: 30
+  localCache: false
+```
+
 ## API
 ### cmdconfig.schema(Schema s)
 return: `Schema`
 
-
+Validate given schema object.
 
 ### cmdconfig.init(Option o)
 return: `config object`<br>
 **config object**: plain javascript object with key, value map.
+
+Parse commandline argument. if `config` command exist, it saves the configuration and exit. Else, it loads the configuration and provides.
 
 
 ## Type
