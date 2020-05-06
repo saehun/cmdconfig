@@ -32,7 +32,7 @@ $ npm install --save cmdconfig
 ```
 
 ## Usage
-Let's assume that we are building office CLI tool which interact with S3. We need to save the user's configuration in local file, implementing functionality simlar to `git config` `aws config`.
+Let's assume that we are building office CLI tool which interact with S3. We need to save the user's configuration in local file, implementing functionality similar to `git config` `aws config`.
 
 ![config-prompt](https://github.com/minidonut/cmdconfig/raw/master/docs/config-prompt.png)
 
