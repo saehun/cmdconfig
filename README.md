@@ -57,7 +57,7 @@ console.log(config);
 ![config-result](https://github.com/minidonut/cmdconfig/raw/master/docs/config-result.png)
 
 ## Features
-After implemented, `config` command is reserved. command with options `config --help` and `config --list` are auto generated. If the program starts with `config` command, it's execution will be stopped after configuration procedure is done.
+After implemented, `config` command is reserved. commands with options `config --help` and `config --list` are auto generated. If the program starts with `config` command, it's execution will be stopped after configuration procedure is done.
 
 ### Inline configuration
 ``` shell
@@ -119,7 +119,7 @@ $ myapp --username=katarina/test --localCache=false
 
 ### Change base directory and filename
 Change location where the configuration file is saved.
-Save file to `~/.dotfiles/.myappconf`:
+Save file to `~/.dotfiles/.myappconf` (default `~/.config`):
 
 ``` javascript
 // myapp.js
@@ -133,3 +133,44 @@ const config = cmdconfig.init({
 });
 ...
 ```
+
+## API
+### cmdconfig.schema(Schema s)
+return: `Schema`
+
+
+
+### cmdconfig.init(Option o)
+return: `config object`<br>
+**config object**: plain javascript object with key, value map.
+
+
+## Type
+### Schema
+| Key | Type | Description |
+| ----- | :--: | ----------- |
+| key1 | `SchemaItem` | SchemaItem for key#1  |
+| key2 | `SchemaItem` | SchemaItem for key#2  |
+| key3 | `SchemaItem` | SchemaItem for key#3  |
+| ... | ... | ... |
+| keyN | `SchemaItem` | SchemaItem for keyN  |
+
+### SchemaItem
+| Key | Type | Description |
+| ----- | :--: | ----------- |
+| type | `"string" | "number" | "boolean" | string[]` | type of config's property. Note) "string" is string constant. not ambiguous string |
+| description | `string` | (Optional) property description. It appears in `--help` command  |
+| shared | `boolean` | (Optional) whether the property belongs to profile or shared |
+
+### Option
+| Key | Type | Description |
+| ----- | :--: | ----------- |
+| filename | `string` | configuration file name. ex) `".myappconfig"`  |
+| schema | `Schema` |  |
+| profile | `string` | (Optional) pass value from environment variable. ex) `process.env.MY_APP_CONFIG` |
+| base | `string` | (Optional) where config file stored. default `path.join(os.homedir(), ".config")` (~/.config) |
+
+
+
+
+### Typescript
