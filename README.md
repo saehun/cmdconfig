@@ -8,7 +8,7 @@
   <a href="https://npmjs.org/package/cmdconfig">
     <img src="https://img.shields.io/npm/v/cmdconfig.svg" alt="version" />
   </a>
-  <a href="https://npmjs.org/package/prompts">
+  <a href="https://npmjs.org/package/cmdconfig">
     <img src="https://img.shields.io/npm/dm/cmdconfig.svg" alt="downloads" />
   </a>
 </p>
@@ -32,7 +32,7 @@ $ npm install --save cmdconfig
 ```
 
 ## Usage
-Let's assume that we are building office CLI tool which interact with S3. We need to save the user's configuration in local file, implementing functionality similar to `git config` `aws config`.
+Let's assume that we are building an office CLI tool which interact with S3. We need to save the user's configuration in local file, implementing functionality similar to `git config` `aws config`.
 
 ![config-prompt](https://github.com/minidonut/cmdconfig/raw/master/docs/config-prompt.png)
 
@@ -191,7 +191,7 @@ Parse commandline argument. if `config` command exist, it saves the configuratio
 ### `SchemaItem`
 | Key | Type | Description |
 | ----- | :--: | ----------- |
-| type | `"string"`, `"number"`, `"boolean"`, `string[]` | type of config's property. Note) "string" is string constant. not ambiguous string |
+| type | `"string"`, `"number"`, `"boolean"`, `string[]` | type of config's property. Note) "number" is string literal. not a number type. |
 | description | `string` | (Optional) property description. It appears in `--help` command  |
 | shared | `boolean` | (Optional) whether the property belongs to profile or shared |
 
@@ -205,7 +205,7 @@ Parse commandline argument. if `config` command exist, it saves the configuratio
 
 
 ## Typescript
-This package is written in typescript, generating output type from schema is not supported yet (working).
+This package is written in typescript, generating output type from schema is not supported yet (work in progress).
 
 ### Example
 ``` typescript
