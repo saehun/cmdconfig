@@ -2,7 +2,7 @@ import { command, argv, help as _help } from "yargs";
 import { execSync } from "child_process";
 import * as _path from "path";
 import * as yaml from "yaml";
-import { Context, Option } from "./types";
+import { Context, Option, Config } from "./types";
 import { intersect } from "./utils";
 import { configure } from "./configure";
 import { loadOrCreate } from "./io";
@@ -12,7 +12,7 @@ import { base64 } from "./base64";
 import { help } from "./help";
 _help(false);
 
-export const init = ({ filename, schema, base = BASE_PATH, profile = "default" }: Option): any => {
+export const init = ({ filename, schema, base = BASE_PATH, profile = "default" }: Option): Config => {
   const path = _path.join(base, filename);
   const configs = JSON.parse(loadOrCreate(path, base));
   const ctx: Context = {

@@ -6,7 +6,7 @@ const configSchema = schema({
   "secretAccessKey": { type: "string", description: "Secret access key of the account" },
   "region": { type: ["us-east-2", "ap-northeast-2", "eu-west-1"], description: "Base region" },
   "timeout": { type: "number", description: "Defualt request timeout in seconds", shared: true },
-  "cache": { type: "boolean", description: "Cashing result", shared: true },
+  "cache": { type: "boolean", description: "Caching result", shared: true },
 });
 
 const asdf = init({
@@ -14,3 +14,4 @@ const asdf = init({
   schema: configSchema,
   profile: process.env.MY_APP_PROFILE,
 });
+console.log(asdf);

@@ -15,7 +15,8 @@ export interface Option {
   base?: string;
 }
 
-export type Configs = Record<string, Record<string, string | number | boolean | string[]>>
+export type Config = Record<string, string | number | boolean | string[]>;
+export type Configs = Record<string, Config>;
 
 export interface Context extends Option {
   argv: Record<string, any>;
