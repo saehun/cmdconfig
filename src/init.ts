@@ -32,7 +32,7 @@ export const init = ({ filename, schema, base = BASE_PATH, profile = "default" }
       console.log(help(schema));
     } else if (argv.list) {
       // list
-      console.log(yaml.stringify(configs));
+      console.log(`${ctx.path}\n` + yaml.stringify(configs));
     } else if (intersect(argv, schema)) {
       configure.inline(ctx);
     } else {
