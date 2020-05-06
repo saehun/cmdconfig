@@ -5,3 +5,18 @@ export const schema0: Schema = ({
   "field3": { type: "boolean", description: "description1", shared: true },
   "field4": { type: ["value1", "value2", "value3"], description: "description1", shared: true },
 });
+
+export const config0 = {
+  default: {
+    field1: "value1",
+    field2: 0,
+  },
+  profile1: {
+    field1: "value2",
+    field2: 0,
+  },
+  shared: {
+    field3: false,
+    field4: "value3",
+  },
+};
