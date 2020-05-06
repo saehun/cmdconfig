@@ -13,7 +13,7 @@ export const config0 = {
   },
   profile1: {
     field1: "value2",
-    field2: 0,
+    field2: 1,
   },
   shared: {
     field3: false,

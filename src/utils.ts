@@ -23,6 +23,7 @@ export const mergeObject = (obj1: any, obj2: any) => {
 export const validateType = (value: any, type: ValidType): (string | number | boolean | string[]) => {
   switch (type) {
     case "string":
+      if (typeof value !== "string") throw new TypeError(`Expected string, given ${value}`);
       return String(value);
     case "number":
       if (isNaN(value)) throw new TypeError(`Expected number, given ${value}`);
