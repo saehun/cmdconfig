@@ -54,5 +54,23 @@ describe("load module", () => {
     })).toThrow(TypeError);
   });
 
+  it("can overide config with optional argument", () => {
+    expect(load({
+      ...ctx0,
+      configs: {},
+      argv: {
+        field1: "value1",
+        field2: 0,
+        field3: true,
+        field4: "value3",
+        field5: "ignored",
+      },
+    })).toEqual({
+      field1: "value1",
+      field2: 0,
+      field3: true,
+      field4: "value3",
+    });
+  });
 
 });
