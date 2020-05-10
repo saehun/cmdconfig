@@ -10,7 +10,6 @@
     "name": "Karl Saehun Chung",
     "email": "saehun.dev@gmail.com"
   },
-  "license": "MIT",
   "scripts": {
     "build": "tsc",
     "test": "NODE_ENV=test jest",
@@ -42,17 +41,9 @@
     "yargs": "^15.3.1"
   },
   "keywords": [
-    "ui",
-    "prompts",
+    "config",
+    "configuration",
     "cli",
-    "prompt",
-    "interface",
-    "command-line",
-    "input",
-    "command",
-    "stdin",
-    "menu",
-    "ask",
-    "interact"
+    "command-line"
   ]
 }
