@@ -12,19 +12,21 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "NODE_ENV=test jest",
+    "test": "NODE_ENV=test ts-node ./node_modules/.bin/jest",
     "lint": "eslint . --ext .js,.ts"
   },
   "devDependencies": {
     "@types/jest": "^25.2.1",
     "@types/node": "^13.13.4",
     "@types/prompts": "^2.0.6",
+    "@types/rewire": "^2.5.28",
     "@types/yargs": "^15.0.4",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "@typescript-eslint/parser": "^2.30.0",
     "eslint": "^6.8.0",
-    "jest": "^25.5.3",
-    "ts-jest": "^25.4.0",
+    "jest": "^26.0.1",
+    "rewire": "^5.0.0",
+    "ts-jest": "^26.1.0",
     "ts-node": "^8.9.1",
     "typescript": "^3.8.3"
   },

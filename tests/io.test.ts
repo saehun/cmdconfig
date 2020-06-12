@@ -4,6 +4,12 @@ import { loadOrCreate, write } from "../src/io";
 const testbase = process.cwd();
 const filename = ".testconfig";
 
+
+// for private functions
+const rewire = require("rewire");
+const io = rewire("../src/io");
+const load = io.__get__("load");
+
 beforeAll(() => {
   fs.writeFileSync(path.join(testbase, filename + "0"), JSON.stringify({ key: "value" }));
 });
@@ -14,6 +20,7 @@ afterAll(() => {
 });
 
 describe("io module", () => {
+
   it("can load file", () => {
     const config = JSON.parse(loadOrCreate(path.join(testbase, filename + "0"), testbase));
     expect(config).toEqual({ key: "value" });
@@ -28,4 +35,7 @@ describe("io module", () => {
     write(path.join(testbase, filename + "0"), { "default": { key: "modified" } });
   });
 
+  it("throw error if not exist", () => {
+    expect(() => load("__file__dont_exist__")).toThrowError();
+  });
 });

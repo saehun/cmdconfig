@@ -1,7 +1,6 @@
 module.exports = {
   coverageDirectory: './coverage/',
   collectCoverage: true,
-  globals: {},
   moduleFileExtensions: [
     'js',
     'json',

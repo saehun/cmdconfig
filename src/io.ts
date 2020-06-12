@@ -3,7 +3,6 @@ import { Configs } from "./types";
 import { FileNotFoundError } from "./errors";
 import { BASE_CONFIG } from "./constants";
 
-
 const load = (path: string) => {
   try {
     return fs.readFileSync(path, "utf-8");
