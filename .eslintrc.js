@@ -29,7 +29,6 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
     // disable rules below
     "@typescript-eslint/camelcase": 0,
-    "@typescript-eslint/no-unused-vars": 0, // duplicated with typescript compiler
     "@typescript-eslint/no-var-requires": 0, // allow require
     "@typescript-eslint/no-explicit-any": 0,
     "@typescript-eslint/no-empty-function": 0,
