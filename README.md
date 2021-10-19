@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="https://github.com/minidonut/cmdconfig/raw/master/logo.png" alt="Cmdconfig" width="600" />
-</p>
-
 <h1 align="center">Command line configuration</h1>
 
 <p align="center">
